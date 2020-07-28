@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('echo') {
+    stage('listDir') {
       steps {
-        echo 'hello'
+        sh 'ls -l ./'
       }
     }
 
