@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('listDir') {
       steps {
-        sh '/var/jenkins_home/workspace/'
+        sh 'ls -l /var/jenkins_home/workspace/'
       }
     }
 
