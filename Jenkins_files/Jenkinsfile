@@ -5,7 +5,7 @@ node {
     }
     agent any
 
-    //def app
+    def app
     stages {
         stage('GitCheckout') {
             // Cloning project microservices-demo
