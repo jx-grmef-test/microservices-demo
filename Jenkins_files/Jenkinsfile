@@ -13,6 +13,8 @@ node {
     stage('Initialize'){
             def dockerHome = tool 'Docker-default'
             env.PATH = "${dockerHome}/bin:${env.PATH}"
+
+            sh 'docker -v'
         }
     stage('Build Adservice image') {
         /* This builds the actual image; synonymous to
