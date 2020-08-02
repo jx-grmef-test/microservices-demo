@@ -15,7 +15,13 @@ node {
 
         sh 'docker -v'
 
-        sh 'chmod +x scrips/docker_daemon.sh && scrips/docker_daemon.sh'
+        //sh 'groupadd docker'
+
+       // sh 'usermod -aG docker $USER'
+
+        //sh 'chmod 777 /var/run/docker.sock'
+
+        //sh 'chmod +x scrips/docker_daemon.sh && scrips/docker_daemon.sh'
 
     }
     stage('Build Adservice image') {
