@@ -19,8 +19,12 @@ node {
     stage('Build Adservice image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
+         dir("src/adservice/") {
+             sh "pwd"
+             //app = docker.build("jx-grmef-test/microservices-demo-2/src/adservice/")
+         }
 
-        app = docker.build("jx-grmef-test/microservices-demo-2/src/adservice/")
+        //app = docker.build("jx-grmef-test/microservices-demo-2/src/adservice/")
         //steps {
         //    script {
         //        //docker.build registry + ":$BUILD_NUMBER"
