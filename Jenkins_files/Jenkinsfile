@@ -3,7 +3,6 @@ node {
         registry = "jx-grmef-test/microservices-demo"
         registryCredential = 'jx-pipeline-git-github-github'
     }
-    agent any
 
     def app
     stage('GitCheckout') {
