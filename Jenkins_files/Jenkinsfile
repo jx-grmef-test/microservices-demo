@@ -21,7 +21,7 @@ node {
          * docker build on the command line */
          dir("src/adservice") {
              sh "pwd"
-             app = docker.build("microservices-demo/adservice/")
+             app = docker.build("microservices-demo/adservice")
          }
 
         //app = docker.build("jx-grmef-test/microservices-demo-2/src/adservice/")
