@@ -18,11 +18,11 @@ pipeline {
             }
         }
         stage('Initialize') {
+            def dockerHome = tool 'Docker-default'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+
             steps {
                 cript {
-                    def dockerHome = tool 'Docker-default'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-
                     sh 'docker -v'
                 }
             }
