@@ -1,5 +1,5 @@
 node {
-    environment {
+    env {
         registry = "jx-grmef-test/microservices-demo"
         registryCredential = 'jx-pipeline-git-github-github'
     }
@@ -24,7 +24,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("${registry}" + "/src/adservice/")
+        app = docker.build("jx-grmef-test/microservices-demo/src/adservice/")
         //steps {
         //    script {
         //        //docker.build registry + ":$BUILD_NUMBER"
