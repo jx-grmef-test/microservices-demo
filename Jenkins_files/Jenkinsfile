@@ -3,8 +3,11 @@ node {
     stage('GitCheckout') {
         steps {
             // Cloning project microservices-demo
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jx-pipeline-git-github-github', url: 'https://github.com/jx-grmef-test/microservices-demo.git']]])
-            sh 'pwd && ls -l && ls -l release '
+            // checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jx-pipeline-git-github-github', url: 'https://github.com/jx-grmef-test/microservices-demo.git']]])
+
+            checkout scm
+
+            sh 'pwd && ls -l && ls -l release'
         }
     }
     //stage('Build image') {
