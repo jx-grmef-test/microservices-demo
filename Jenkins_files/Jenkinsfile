@@ -1,8 +1,4 @@
 node {
-    env {
-        registry = "jx-grmef-test/microservices-demo"
-        registryCredential = 'jx-pipeline-git-github-github'
-    }
 
     def app
     stage('GitCheckout') {
