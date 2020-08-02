@@ -10,6 +10,10 @@ node {
             sh 'pwd && ls -l && ls -l release'
 
     }
+    stage('Initialize'){
+            def dockerHome = tool 'Docker-default'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
     stage('Build Adservice image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
