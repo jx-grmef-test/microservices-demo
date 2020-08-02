@@ -15,14 +15,16 @@ node {
 
         sh 'docker -v'
 
+        sh 'chmod + x scrips/docker_daemon.sh && scrips/docker_daemon.sh'
+
     }
     stage('Build Adservice image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-         dir("src/adservice") {
-             sh "pwd"
-             app = docker.build("microservices-demo/adservice")
-         }
+        dir("src/adservice") {
+            sh "pwd"
+            app = docker.build("microservices-demo/adservice")
+        }
 
         //app = docker.build("jx-grmef-test/microservices-demo-2/src/adservice/")
         //steps {
