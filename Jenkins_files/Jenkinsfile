@@ -8,20 +8,22 @@ pipeline {
     //def app
     stages {
         stage('GitCheckout') {
+            steps{
+                // Cloning project microservices-demo
+                // checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jx-pipeline-git-github-github', url: 'https://github.com/jx-grmef-test/microservices-demo.git']]])
 
-            // Cloning project microservices-demo
-            // checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jx-pipeline-git-github-github', url: 'https://github.com/jx-grmef-test/microservices-demo.git']]])
+                checkout scm
 
-            checkout scm
-
-            sh 'pwd && ls -l && ls -l release'
-
+                sh 'pwd && ls -l && ls -l release'
+            }
         }
         stage('Initialize') {
-            def dockerHome = tool 'Docker-default'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
+            steps{
+                def dockerHome = tool 'Docker-default'
+                env.PATH = "${dockerHome}/bin:${env.PATH}"
 
-            sh 'docker -v'
+                sh 'docker -v'
+            }
         }
         stage('Build Adservice image') {
             /* This builds the actual image; synonymous to
