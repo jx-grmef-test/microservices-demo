@@ -27,10 +27,12 @@ node {
         stage('Test Adservice image') {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
-
-            app.inside {
-                sh 'curl http://localhost:9555 || exit 1'
-                sh 'echo "Tests passed"'
+            dir("src/adservice") {
+                sh "pwd"
+                app.inside {
+                    sh 'curl http://localhost:9555 || exit 1'
+                    sh 'echo "Tests passed"'
+                }
             }
         }
         //stage('Push image') {
