@@ -15,14 +15,6 @@ node {
 
         sh 'docker -v'
 
-        //sh 'groupadd docker'
-
-       // sh 'usermod -aG docker $USER'
-
-        //sh 'chmod 777 /var/run/docker.sock'
-
-        //sh 'chmod +x scrips/docker_daemon.sh && scrips/docker_daemon.sh'
-
     }
     stage('Build Adservice image') {
         /* This builds the actual image; synonymous to
@@ -32,22 +24,15 @@ node {
             app = docker.build("microservices-demo/src/adservice")
         }
 
-        //app = docker.build("jx-grmef-test/microservices-demo-2/src/adservice/")
-        //steps {
-        //    script {
-        //        //docker.build registry + ":$BUILD_NUMBER"
-        //        docker.build("jx-grmef-test/microservices-demo-2/src/adservice/")
-        //    }
-        //}
-        //stage('Test image') {
-        //    /* We test our image with a simple smoke test:
-        //     * Run a curl inside the newly-build Docker image */
+        stage('Test Adservice image') {
+            /* We test our image with a simple smoke test:
+             * Run a curl inside the newly-build Docker image */
 
-        //    app.inside {
-        //        sh 'curl http://localhost:9555 || exit 1'
-        //        sh 'echo "Tests passed"'
-        //    }
-        //}
+            app.inside {
+                sh 'curl http://localhost:9555 || exit 1'
+                sh 'echo "Tests passed"'
+            }
+        }
         //stage('Push image') {
         //    /* Finally, we'll push the image with two tags:
         //     * First, the incremental build number from Jenkins
