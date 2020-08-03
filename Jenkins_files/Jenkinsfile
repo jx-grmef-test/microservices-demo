@@ -87,7 +87,7 @@ node {
 
             docker.image("microservices-demo/image/cartservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:7070 || exit 1'
-                sh 'cat ./cartservice'
+                sh 'find / -type f -name cartservice'
                 sh 'echo "Tests passed"'
             }
 
