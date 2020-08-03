@@ -29,7 +29,7 @@ node {
              * Run a curl inside the newly-build Docker image */
 
             sh "echo $PATH"
-            docker.image("microservices-demo/src/adservice:latest").inside("-u root --entrypoint='/start.sh'") { c ->
+            docker.image("microservices-demo/src/adservice:latest").inside("-u root --entrypoint='/app/build/install/hipstershop/bin/AdService'") { c ->
                 sh 'curl http://localhost:9555 || exit 1'
                 sh 'echo "Tests passed"'
             }
