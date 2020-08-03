@@ -85,7 +85,7 @@ node {
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/cartservice:latest").inside("--entrypoint=\"./cartservice\", \"start\"") { c ->
+            docker.image("microservices-demo/image/cartservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:7070 || exit 1'
                 sh 'cat ./cartservice'
                 sh 'echo "Tests passed"'
