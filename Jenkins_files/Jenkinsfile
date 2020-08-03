@@ -10,7 +10,7 @@ node {
         sh 'pwd && ls -l && ls -l release'
     }
     stage('Initialize') {
-        def dockerHome = tool 'Docker-default'
+        def dockerHome = tool 'Docker-19'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
 
         sh 'docker -v'
