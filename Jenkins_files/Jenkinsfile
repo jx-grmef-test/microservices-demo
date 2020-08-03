@@ -27,14 +27,19 @@ node {
         stage('Test Adservice image') {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
-            dir("src/adservice") {
-                sh "pwd"
-                app.inside {
+
+            sh "echo $PATH"
+            sh "docker ps"
+            docker.image("microservices-demo/src/adservice:latest").inside("") { c ->
                     sh 'curl http://localhost:9555 || exit 1'
                     sh 'echo "Tests passed"'
                 }
-            }
-        }
+
+        //    app.inside {
+        //        sh 'curl http://localhost:9555 || exit 1'
+        //        sh 'echo "Tests passed"'
+        //    }
+        //}
         //stage('Push image') {
         //    /* Finally, we'll push the image with two tags:
         //     * First, the incremental build number from Jenkins
