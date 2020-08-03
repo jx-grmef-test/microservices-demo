@@ -79,8 +79,9 @@ node {
              * Run a curl inside the newly-build Docker image */
 
             sh "echo $PATH"
-            docker.image("microservices-demo/image/adservice:latest").inside("--entrypoint='/app/build/install/hipstershop/bin/AdService'") { c ->
+            docker.image("microservices-demo/image/adservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:9555 || exit 1'
+                sh 'find / -type f -name AdService'
                 sh 'cat /app/build/install/hipstershop/bin/AdService'
                 sh 'echo "Tests passed"'
             }
@@ -88,63 +89,73 @@ node {
             docker.image("microservices-demo/image/cartservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:7070 || exit 1'
                 sh 'find / -type f -name cartservice'
+                // sh 'cat /app/cartservice'
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/checkoutservice:latest").inside("--entrypoint='/checkoutservice'") { c ->
+            docker.image("microservices-demo/image/checkoutservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:5050 || exit 1'
-                sh 'cat /checkoutservice'
+                sh 'find / -type f -name checkoutservice'
+                // sh 'cat /app/cartservice'
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/currencyservice:latest").inside("--entrypoint=\"node\", \"server.js") { c ->
+            docker.image("microservices-demo/image/currencyservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:7000 || exit 1'
                 sh 'which node'
                 sh 'find / -type f -name server.js'
+                // sh 'cat /'
                 sh 'echo "Currency Service Test passed"'
             }
 
-            docker.image("microservices-demo/image/emailservice:latest").inside("--entrypoint=\"python\", \"email_server.py\"") { c ->
+            docker.image("microservices-demo/image/emailservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:5000 || exit 1'
                 sh 'which python'
                 sh 'find / -type f -name email_server.py'
+                // sh 'cat /app/cartservice'
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/frontend:latest").inside("--entrypoint='/frontend/server'") { c ->
+            docker.image("microservices-demo/image/frontend:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:8080 || exit 1'
-                sh 'cat /frontend/server'
+                sh 'find / -type f -name server'
+                //sh 'cat /frontend/server'
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/loadgenerator:latest").inside("--entrypoint='./loadgen.sh'") { c ->
+            docker.image("microservices-demo/image/loadgenerator:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:80 || exit 1'
-                sh 'cat ./loadgen.sh'
+                sh 'find / -type f -name loadgen.sh'
+                //sh 'cat ./loadgen.sh'
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/paymentservice:latest").inside("--entrypoint='\"node\", \"index.js\"'") { c ->
+            docker.image("microservices-demo/image/paymentservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:50051 || exit 1'
                 sh 'which node'
                 sh 'find / -type f -name index.js'
+                //sh 'cat '
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/productcatalogservice:latest").inside("--entrypoint='/productcatalogservice/server'") { c ->
+            docker.image("microservices-demo/image/productcatalogservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:3550 || exit 1'
-                sh 'cat /productcatalogservice/server'
+                sh 'find / -type f -name server'
+                //sh 'cat /productcatalogservice/server'
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/recommendationservice:latest").inside("--entrypoint='/recommendationservice/recommendation_server.py'") { c ->
+            docker.image("microservices-demo/image/recommendationservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:8080 || exit 1'
-                sh 'cat /recommendationservice/recommendation_server.py'
+                sh 'find / -type f -name recommendation_server.py'
+                //sh 'cat /'
                 sh 'echo "Tests passed"'
             }
 
-            docker.image("microservices-demo/image/shippingservice:latest").inside("--entrypoint='/shippingservice'") { c ->
+            docker.image("microservices-demo/image/shippingservice:latest").inside("--entrypoint=''") { c ->
                 //sh 'curl http://localhost:50051 || exit 1'
-                sh 'cat /shippingservice'
+                sh 'find / -type f -name shippingservice'
+                //sh 'cat /'
                 sh 'echo "Tests passed"'
             }
         }
