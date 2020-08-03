@@ -31,9 +31,10 @@ node {
             sh "echo $PATH"
             sh "docker ps"
             docker.image("microservices-demo/src/adservice:latest").inside("") { c ->
-                    sh 'curl http://localhost:9555 || exit 1'
-                    sh 'echo "Tests passed"'
-                }
+                sh 'curl http://localhost:9555 || exit 1'
+                sh 'echo "Tests passed"'
+            }
+        }
 
         //    app.inside {
         //        sh 'curl http://localhost:9555 || exit 1'
