@@ -13,7 +13,6 @@ def ingressHost = "frontend-external.apps.meflab.xyz"
 def app
 def imageName
 def dockerIimages
-def test
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 pipeline {
@@ -53,10 +52,9 @@ pipeline {
                         ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
                         ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
-                    test = sh(returnStdout: true, script: 'pwd | awk -F \\"/\\" \'{print $NF}\'').trim()
-                    echo "${test}"
                     script {
-
+                        def test = sh(returnStdout: true, script: 'pwd | awk -F \\"/\\" \'{print $NF}\'').trim()
+                        echo "${test}"
                         imageName   = "adservice"
                         //imageName   = "adservice"
                         app         = docker.build("microservices-demo/image/${imageName}")
