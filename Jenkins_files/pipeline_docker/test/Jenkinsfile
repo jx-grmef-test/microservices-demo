@@ -83,7 +83,7 @@ pipeline {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                         app.push("tasks:${devTag}")
-                    //docker.tag("${imageName}:latest", "tasks:${devTag}")
+                        app.tag("${imageName}:latest", "tasks:${devTag}")
                     }
                 }
             }
