@@ -32,7 +32,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: http://nexus-docker.apps.meflab.xyz/repository/emailservice:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/emailservice:latest
         ports:
         - containerPort: 8080
         env:
@@ -86,7 +86,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: http://nexus-docker.apps.meflab.xyz/repository/checkoutservice:latest
+          image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/checkoutservice:latest
           ports:
           - containerPort: 5050
           readinessProbe:
@@ -147,7 +147,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: http://nexus-docker.apps.meflab.xyz/repository/recommendationservice:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/recommendationservice:latest
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -201,7 +201,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: http://nexus-docker.apps.meflab.xyz/repository/frontend:latest
+          image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/frontend:latest
           ports:
           - containerPort: 8080
           readinessProbe:
@@ -289,7 +289,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: http://nexus-docker.apps.meflab.xyz/repository/paymentservice:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/paymentservice:latest
         ports:
         - containerPort: 50051
         env:
@@ -338,7 +338,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: http://nexus-docker.apps.meflab.xyz/repository/productcatalogservice:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/productcatalogservice:latest
         ports:
         - containerPort: 3550
         env:
@@ -387,7 +387,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: http://nexus-docker.apps.meflab.xyz/repository/cartservice:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/cartservice:latest
         ports:
         - containerPort: 7070
         env:
@@ -447,7 +447,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: main
-        image: http://nexus-docker.apps.meflab.xyz/repository/loadgenerator:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/loadgenerator:latest
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -477,7 +477,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: http://nexus-docker.apps.meflab.xyz/repository/currencyservice:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/currencyservice:latest
         ports:
         - name: grpc
           containerPort: 7000
@@ -526,7 +526,7 @@ spec:
     spec:
       containers:
       - name: server
-        image: http://nexus-docker.apps.meflab.xyz/repository/shippingservice:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/shippingservice:latest
         ports:
         - containerPort: 50051
         env:
@@ -629,7 +629,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: http://nexus-docker.apps.meflab.xyz/repository/adservice:latest
+        image: http://nexus-docker.apps.meflab.xyz/v2/microservices-demo/image/adservice:latest
         ports:
         - containerPort: 9555
         env:
