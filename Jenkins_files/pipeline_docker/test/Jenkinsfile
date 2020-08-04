@@ -29,16 +29,16 @@ pipeline {
                 sh 'pwd && ls -l && ls -l release '
             }
         }
-        //stage('Build images') {
-        //    steps {
-        //        echo 'Building adservice image'
-        //        dir("src/adservice") {
-        //            sh "pwd"
+        stage('Build images') {
+            steps {
+                echo 'Building adservice image'
+                dir("src/adservice") {
+                    sh "pwd"
         //            //script {
         //            //    app = docker.build("microservices-demo/image/adservice")
         //            //}
         //        }
         //    }
-        //}
+        }
     }
 }
