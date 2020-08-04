@@ -147,9 +147,9 @@ pipeline {
                         //imageName = "checkoutservice"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("########################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -161,9 +161,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "########################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("########################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -172,9 +172,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "########################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("########################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -194,9 +194,9 @@ pipeline {
                         //imageName = "currencyservice"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("########################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -208,9 +208,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "########################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("########################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -219,9 +219,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "########################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("########################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -241,9 +241,9 @@ pipeline {
                         //imageName = "emailservice"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "#####################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("#####################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -255,9 +255,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "#####################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("#####################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -266,9 +266,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "#####################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("#####################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -288,9 +288,9 @@ pipeline {
                         //imageName = "frontend"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "#################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("#################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -302,9 +302,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "#################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("#################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -313,9 +313,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "#################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("#################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -335,9 +335,9 @@ pipeline {
                         //imageName = "loadgenerator"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "######################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("######################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -349,9 +349,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "######################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("######################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -360,9 +360,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "######################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("######################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -382,9 +382,9 @@ pipeline {
                         //imageName = "paymentservice"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "######################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("######################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -396,9 +396,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "######################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("######################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -407,9 +407,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "######################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("######################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -428,9 +428,9 @@ pipeline {
                         //imageName = "productcatalogservice"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "##############################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("##############################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -442,9 +442,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "##############################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("##############################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -453,9 +453,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "##############################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("##############################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -475,9 +475,9 @@ pipeline {
                         //imageName = "recommendationservice"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "##############################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("##############################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -489,9 +489,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "##############################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("##############################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -500,9 +500,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "##############################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("##############################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -522,9 +522,9 @@ pipeline {
                         //imageName = "shippingservice"
                         imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("########################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -536,9 +536,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "########################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("########################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -547,9 +547,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "########################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("########################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
