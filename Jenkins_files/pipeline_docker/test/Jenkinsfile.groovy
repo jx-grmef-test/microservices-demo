@@ -3,7 +3,7 @@
 def projectName = "microservices-demo"
 
 // Nexus Container Registry Service
-def nexusRegistry = "http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/"
+def nexusRegistry = "http://nexus-docker.apps.meflab.xyz/repository/microservices-demo"
 def nexusPassword = "nexus-password"
 
 // Infress Vars
@@ -50,11 +50,12 @@ pipeline {
                         ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
                         ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
-                    sh "pwd"
+                    sh "pwd | awk -F \"/\" '{print $NF}'"
                     script {
 
                         imageName   = "adservice"
-                        app         = docker.build("microservices-demo/image/adservice")
+                        //imageName   = "adservice"
+                        app         = docker.build("microservices-demo/image/${imageName}")
                     }
                 }
             }
@@ -81,9 +82,14 @@ pipeline {
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
-                        app.push("${imageName}:latest", "tasks:${devTag}")
-                        //docker.tag("${imageName}:latest", "tasks:${devTag}")
+                        app.push("latest")
                     }
+                }
+                echo "######################################\n" +
+                    ("# Cleaning up unused adservice image #\n" as java.lang.CharSequence) +
+                    ("######################################" as java.lang.CharSequence)
+                    //sh "docker rmi $registry:$BUILD_NUMBER"
+                sh "docker rmi \$(docker images --filter=reference="${nexusRegistry}/${imageName}*" -q)"
                 }
             }
         }

@@ -3,7 +3,7 @@
 def projectName = "microservices-demo"
 
 // Nexus Container Registry Service
-def nexusRegistry = "http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/"
+def nexusRegistry = "http://nexus-docker.apps.meflab.xyz/repository/microservices-demo"
 def nexusPassword = "nexus-password"
 
 // Infress Vars
@@ -47,14 +47,15 @@ pipeline {
         stage('Build adservice image') {
             steps {
                 echo "#####################################\n" +
-                    ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                    ("#####################################" as java.lang.CharSequence)
+                        ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
+                        ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
-                    sh "pwd"
+                    sh "pwd | awk -F \"/\" '{print $NF}'"
                     script {
 
                         imageName   = "adservice"
-                        app         = docker.build("microservices-demo/image/adservice")
+                        //imageName   = "adservice"
+                        app         = docker.build("microservices-demo/image/${imageName}")
                     }
                 }
             }
@@ -64,8 +65,8 @@ pipeline {
              * Run a curl inside the newly-build Docker image */
             steps {
                 echo "####################################\n" +
-                    ("# Testing adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                    ("####################################" as java.lang.CharSequence)
+                        ("# Testing adservice image ${devTag}#\n" as java.lang.CharSequence) +
+                        ("####################################" as java.lang.CharSequence)
                 sh "echo $PATH"
                 script {
                     docker.image("microservices-demo/image/adservice:latest").inside("--entrypoint=''") { c ->
@@ -76,15 +77,19 @@ pipeline {
                     }
                 }
                 echo "####################################\n" +
-                    ("# Pushing adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                    ("####################################" as java.lang.CharSequence)
+                        ("# Pushing adservice image ${devTag}#\n" as java.lang.CharSequence) +
+                        ("####################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
-                        app.push("tasks:${devTag}")
-                        app.tag("${imageName}:latest", "tasks:${devTag}")
                     }
+                }
+                echo "######################################\n" +
+                    ("# Cleaning up unused adservice image #\n" as java.lang.CharSequence) +
+                    ("######################################" as java.lang.CharSequence)
+                    //sh "docker rmi $registry:$BUILD_NUMBER"
+                sh "docker rmi \$(docker images --filter=reference="${nexusRegistry}/${imageName}*" -q)"
                 }
             }
         }
