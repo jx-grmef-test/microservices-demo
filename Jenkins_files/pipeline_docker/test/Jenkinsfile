@@ -63,7 +63,7 @@ pipeline {
                 }
             }
         }
-        stage("Test and Push ${imageName} image to Nexus") {
+        stage('Test and Push adservice image to Nexus') {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -109,7 +109,7 @@ pipeline {
                 }
             }
         }
-        stage("Test and Push ${imageName} image to Nexus") {
+        stage('Test and Push cartservice image to Nexus') {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
