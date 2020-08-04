@@ -31,11 +31,9 @@ pipeline {
         stage('GitCheckout') {
             steps {
                 // Cloning project microservices-demo
-                //checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jx-pipeline-git-github-github', url: 'https://github.com/jx-grmef-test/microservices-demo.git']]])
-
                 checkout scm
 
-                sh 'pwd && ls -l && ls -l release '
+                //sh 'pwd && ls -l && ls -l release '
 
                 script {
 
@@ -48,14 +46,16 @@ pipeline {
         }
         stage('Build adservice image') {
             steps {
-                echo "#####################################\n" +
-                        ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                        ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
                     script {
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
                         //imageName = "adservice"
-                        app         = docker.build("microservices-demo/image/${imageName}")
+                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+
+                        echo "######################################\n" +
+                            ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
+                            ("######################################" as java.lang.CharSequence)
+
+                        app = docker.build("${projectName}/image/${imageName}")
                     }
                 }
             }
@@ -64,21 +64,21 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "####################################\n" +
-                        ("# Testing adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                        ("####################################" as java.lang.CharSequence)
+                echo "#####################################\n" +
+                    ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
+                    ("#####################################" as java.lang.CharSequence)
                 sh "echo $PATH"
                 script {
-                    docker.image("microservices-demo/image/adservice:latest").inside("--entrypoint=''") { c ->
+                    docker.image("${projectName}/image/adservice:latest").inside("--entrypoint=''") { c ->
                         //sh 'curl http://localhost:9555 || exit 1'
                         sh 'find / -type f -name AdService'
                         //sh 'cat /app/build/install/hipstershop/bin/AdService'
                         sh 'echo "Tests passed"'
                     }
                 }
-                echo "####################################\n" +
-                    ("# Pushing adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                    ("####################################" as java.lang.CharSequence)
+                echo "#####################################\n" +
+                    ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
+                    ("#####################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -94,7 +94,7 @@ pipeline {
                     ("#############################" as java.lang.CharSequence)
 
                 echo "### Dangling all Containers, Images, and Volumes"
-                sh 'docker system prune -af --volumes'
+                //sh 'docker system prune -af --volumes'
            }
         }
     }
