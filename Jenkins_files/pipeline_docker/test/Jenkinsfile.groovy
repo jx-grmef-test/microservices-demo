@@ -637,6 +637,7 @@ pipeline {
             }
         }
         stage('pods Verification') {
+            when { equals expected: true, actual: "pods Verification" }
             steps {
                 // Create a NameSpace kubectl-binary
                 echo "See if pods are in a Ready state"
@@ -654,6 +655,7 @@ pipeline {
             }
         }
         stage('Crete App Ingress') {
+            when { equals expected: true, actual: "Crete App Ingress" }
             steps {
                 // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} frontend Ingress"
