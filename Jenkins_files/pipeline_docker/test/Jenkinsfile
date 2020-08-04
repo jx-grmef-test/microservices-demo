@@ -93,8 +93,8 @@ pipeline {
                     script {
 
                         //imageName   = "adservice"
-                        //sh 'docker rmi $(docker images --filter=reference="http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/${imageName}*" -q)'
-                        sh 'docker rmi $(docker images --filter=reference=' + ("${nexusRegistry}/${imageName}*" as java.lang.CharSequence) + (' -q)' as java.lang.CharSequence)
+                        sh 'docker rmi $(docker images --filter=reference="http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/adservice*" -q)'
+                        //sh 'docker rmi $(docker images --filter=reference=' + ("${nexusRegistry}/${imageName}*" as java.lang.CharSequence) + (' -q)' as java.lang.CharSequence)
                     }
                 }
             }
