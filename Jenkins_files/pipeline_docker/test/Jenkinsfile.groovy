@@ -51,7 +51,7 @@ pipeline {
                         ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
                         ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
-                    sh 'pwd | awk -F \\"/\\" \'{print $NF}\''
+                    sh(returnStdout: true, script: 'pwd | awk -F \\"/\\" \'{print $NF}\'').trim()
                     script {
 
                         imageName   = "adservice"
