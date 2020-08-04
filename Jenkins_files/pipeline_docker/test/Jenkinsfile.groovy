@@ -1,10 +1,12 @@
+// This is a Declarative Jenkinsfile
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Project variables
 
 def projectName = "microservices-demo"
 
 // Kubernetes Config Variables
 def appNameSpace = "app-microservices-demo"
-def appVersion = "latest"
 
 // Infress Vars
 def ingressName = "frontend-external"
@@ -16,11 +18,6 @@ def nexusPassword = "nexus-password"
 
 def app
 def imageName
-def dockerIimages
-
-
-// Project variables
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 pipeline {
@@ -28,7 +25,6 @@ pipeline {
 
     environment {
         // Define global variables
-
 
         // Tags
         devTag = "0.0-0"
@@ -635,6 +631,7 @@ pipeline {
         }
         stage('Deploy online-boutique') {
             steps {
+                sh 'pwd && ls -l && ls -l release '
                 echo "Deploying ${projectName} in ${appNameSpace} Namespace"
                 sh "kubectl -n ${appNameSpace} apply -f ./release/kubernetes-manifests-nexus.yaml"
             }
