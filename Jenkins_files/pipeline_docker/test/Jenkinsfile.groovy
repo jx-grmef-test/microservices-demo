@@ -53,10 +53,8 @@ pipeline {
                         ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
                     script {
-                        def test = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
-                        echo "${test}"
-                        imageName   = "adservice"
-                        //imageName   = "adservice"
+                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        //imageName = "adservice"
                         app         = docker.build("microservices-demo/image/${imageName}")
                     }
                 }
@@ -96,7 +94,7 @@ pipeline {
 
                         //imageName   = "adservice"
                         //sh 'docker rmi $(docker images --filter=reference="http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/${imageName}*" -q)'
-                        sh "docker rmi \$(docker images --filter=reference=\"http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/${imageName}*\" -q)"
+                        sh "docker rmi \$(docker images --filter=reference=${nexusRegistry}/${imageName}* -q)"
                     }
                 }
             }
