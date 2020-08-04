@@ -81,7 +81,7 @@ pipeline {
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
-                        app.push("${imageName}:latest", "tasks:${devTag}")
+                        app.push("${imageName}:latest")
                     //docker.tag("${imageName}:latest", "tasks:${devTag}")
                     }
                 }
