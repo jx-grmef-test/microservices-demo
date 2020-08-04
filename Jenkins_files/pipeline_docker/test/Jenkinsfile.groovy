@@ -4,7 +4,7 @@ def projectName = "microservices-demo"
 
 // Kubernetes Config Variables
 def appNameSpace = "app-microservices-demo"
-def appVersion   = "latest"
+def appVersion = "latest"
 
 // Infress Vars
 def ingressName = "frontend-external"
@@ -22,7 +22,6 @@ def dockerIimages
 // Project variables
 
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 pipeline {
     agent any
@@ -32,9 +31,9 @@ pipeline {
 
 
         // Tags
-        devTag      = "0.0-0"
-        prodTag     = "0.0"
-        version     = "v1"
+        devTag = "0.0-0"
+        prodTag = "0.0"
+        version = "v1"
     }
     stages {
         stage('GitCheckout') {
@@ -47,7 +46,7 @@ pipeline {
                 script {
 
                     // Set the tag for the development image: version + build number
-                    devTag  = "${version}-" + currentBuild.number
+                    devTag = "${version}-" + currentBuild.number
                     // Set the tag for the production image: version
                     prodTag = "${version}"
                 }
@@ -63,11 +62,11 @@ pipeline {
                     script {
                         //imageName = "adservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "##################################\n" +
-                            ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                            ("##################################" as java.lang.CharSequence)
+                                ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
+                                ("##################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -80,8 +79,8 @@ pipeline {
              * Run a curl inside the newly-build Docker image */
             steps {
                 echo "#################################\n" +
-                    ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                    ("#################################" as java.lang.CharSequence)
+                        ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
+                        ("#################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -91,8 +90,8 @@ pipeline {
                     }
                 }
                 echo "#################################\n" +
-                    ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                    ("#################################" as java.lang.CharSequence)
+                        ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
+                        ("#################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
@@ -112,7 +111,7 @@ pipeline {
                     script {
                         //imageName = "cartservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "####################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -162,7 +161,7 @@ pipeline {
                     script {
                         //imageName = "checkoutservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -212,7 +211,7 @@ pipeline {
                     script {
                         //imageName = "currencyservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -262,7 +261,7 @@ pipeline {
                     script {
                         //imageName = "emailservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "#####################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -312,7 +311,7 @@ pipeline {
                     script {
                         //imageName = "frontend"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "#################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -362,7 +361,7 @@ pipeline {
                     script {
                         //imageName = "loadgenerator"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "######################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -412,7 +411,7 @@ pipeline {
                     script {
                         //imageName = "paymentservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "#######################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -462,7 +461,7 @@ pipeline {
                     script {
                         //imageName = "productcatalogservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "##############################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -512,7 +511,7 @@ pipeline {
                     script {
                         //imageName = "recommendationservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "##############################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -562,7 +561,7 @@ pipeline {
                     script {
                         //imageName = "shippingservice"
                         // .trim removes leading and trailing whitespace from the string
-                        imageName   = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
+                        imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
                         echo "########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
@@ -605,12 +604,12 @@ pipeline {
             when { equals expected: true, actual: "Clean images" }
             steps {
                 echo "###########################\n" +
-                    ("# Cleaning up Docker Images #\n" as java.lang.CharSequence) +
-                    ("###########################" as java.lang.CharSequence)
+                        ("# Cleaning up Docker Images #\n" as java.lang.CharSequence) +
+                        ("###########################" as java.lang.CharSequence)
 
                 echo "### Dangling all Containers, Images, and Volumes"
                 sh 'docker system prune -af --volumes'
-           }
+            }
         }
 
         //#############################
@@ -634,52 +633,58 @@ pipeline {
                 }
             }
         }
-        stage('Deploy online-boutique') {
+        stage('online-boutique Deployment emailservice') {
             steps {
                 // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
-                        "apiVersion: apps/v1\n" +
-                        "kind: Deployment\n" +
-                        "metadata:\n" +
-                        "  name: emailservice\n" +
-                        "spec:\n" +
-                        "  selector:\n" +
-                        "    matchLabels:\n" +
-                        "      app: emailservice\n" +
-                        "  template:\n" +
-                        "    metadata:\n" +
-                        "      labels:\n" +
-                        "        app: emailservice\n" +
-                        "    spec:\n" +
-                        "      terminationGracePeriodSeconds: 5\n" +
-                        "      containers:\n" +
-                        "      - name: server\n" +
-                        "        image: ${nexusRegistry}/emailservice:${appVersion}\n" +
-                        "        ports:\n" +
-                        "        - containerPort: 8080\n" +
-                        "        env:\n" +
-                        "        - name: PORT\n" +
-                        "          value: \"8080\"\n" +
-                        "        # - name: DISABLE_TRACING\n" +
-                        "        #   value: \"1\"\n" +
-                        "        - name: DISABLE_PROFILER\n" +
-                        "          value: \"1\"\n" +
-                        "        readinessProbe:\n" +
-                        "          periodSeconds: 5\n" +
-                        "          exec:\n" +
-                        "            command: [\"/bin/grpc_health_probe\", \"-addr=:8080\"]\n" +
-                        "        livenessProbe:\n" +
-                        "          periodSeconds: 5\n" +
-                        "          exec:\n" +
-                        "            command: [\"/bin/grpc_health_probe\", \"-addr=:8080\"]\n" +
-                        "        resources:\n" +
-                        "          requests:\n" +
-                        "            cpu: 100m\n" +
-                        "            memory: 64Mi\n" +
-                        "          limits:\n" +
-                        "            cpu: 200m\n" +
-                        "            memory: 128Mi\n" +
+                   "apiVersion: apps/v1\n" +
+                   "kind: Deployment\n" +
+                   "metadata:\n" +
+                   "  name: emailservice\n" +
+                   "spec:\n" +
+                   "  selector:\n" +
+                   "    matchLabels:\n" +
+                   "      app: emailservice\n" +
+                   "  template:\n" +
+                   "    metadata:\n" +
+                   "      labels:\n" +
+                   "        app: emailservice\n" +
+                   "    spec:\n" +
+                   "      terminationGracePeriodSeconds: 5\n" +
+                   "      containers:\n" +
+                   "      - name: server\n" +
+                   "        image: ${nexusRegistry}/emailservice:${appVersion}\n" +
+                   "        ports:\n" +
+                   "        - containerPort: 8080\n" +
+                   "        env:\n" +
+                   "        - name: PORT\n" +
+                   "          value: \"8080\"\n" +
+                   "        - name: DISABLE_PROFILER\n" +
+                   "          value: \"1\"\n" +
+                   "        readinessProbe:\n" +
+                   "          periodSeconds: 5\n" +
+                   "          exec:\n" +
+                   "            command: [\"/bin/grpc_health_probe\", \"-addr=:8080\"]\n" +
+                   "        livenessProbe:\n" +
+                   "          periodSeconds: 5\n" +
+                   "          exec:\n" +
+                   "            command: [\"/bin/grpc_health_probe\", \"-addr=:8080\"]\n" +
+                   "        resources:\n" +
+                   "          requests:\n" +
+                   "            cpu: 100m\n" +
+                   "            memory: 64Mi\n" +
+                   "          limits:\n" +
+                   "            cpu: 200m\n" +
+                   "            memory: 128Mi\n" +
+                   "EOF"
+            }
+        }
+        stage('online-boutique Service emailservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "---\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
@@ -693,7 +698,14 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 5000\n" +
                         "    targetPort: 8080\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment checkoutservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -740,7 +752,14 @@ pipeline {
                         "            limits:\n" +
                         "              cpu: 200m\n" +
                         "              memory: 128Mi\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service checkoutservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -753,7 +772,14 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 5050\n" +
                         "    targetPort: 5050\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment recommendationservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -793,7 +819,14 @@ pipeline {
                         "          limits:\n" +
                         "            cpu: 200m\n" +
                         "            memory: 450Mi\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service recommendationservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -806,7 +839,14 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 8080\n" +
                         "    targetPort: 8080\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment frontend') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -869,7 +909,14 @@ pipeline {
                         "            limits:\n" +
                         "              cpu: 200m\n" +
                         "              memory: 128Mi\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service frontend') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -882,7 +929,14 @@ pipeline {
                         "  - name: http\n" +
                         "    port: 80\n" +
                         "    targetPort: 8080\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service frontend-external') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -895,7 +949,14 @@ pipeline {
                         "  - name: http\n" +
                         "    port: 80\n" +
                         "    targetPort: 8080\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment paymentservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -931,7 +992,14 @@ pipeline {
                         "          limits:\n" +
                         "            cpu: 200m\n" +
                         "            memory: 128Mi\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service paymentservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -944,7 +1012,14 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 50051\n" +
                         "    targetPort: 50051\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment productcatalogservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -980,7 +1055,14 @@ pipeline {
                         "          limits:\n" +
                         "            cpu: 200m\n" +
                         "            memory: 128Mi\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service productcatalogservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -993,7 +1075,14 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 3550\n" +
                         "    targetPort: 3550\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment cartservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -1036,7 +1125,14 @@ pipeline {
                         "          periodSeconds: 10\n" +
                         "          exec:\n" +
                         "            command: [\"/bin/grpc_health_probe\", \"-addr=:7070\", \"-rpc-timeout=5s\"]\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service cartservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -1049,7 +1145,14 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 7070\n" +
                         "    targetPort: 7070\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment loadgenerator') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -1083,7 +1186,14 @@ pipeline {
                         "          limits:\n" +
                         "            cpu: 500m\n" +
                         "            memory: 512Mi\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment currencyservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -1120,7 +1230,14 @@ pipeline {
                         "          limits:\n" +
                         "            cpu: 200m\n" +
                         "            memory: 128Mi\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service currencyservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -1133,7 +1250,14 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 7000\n" +
                         "    targetPort: 7000\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment shippingservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -1169,7 +1293,14 @@ pipeline {
                         "          limits:\n" +
                         "            cpu: 200m\n" +
                         "            memory: 128Mi\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service shippingservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -1182,6 +1313,14 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 50051\n" +
                         "    targetPort: 50051\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment redis-cart') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "---\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
@@ -1222,7 +1361,14 @@ pipeline {
                         "      volumes:\n" +
                         "      - name: redis-data\n" +
                         "        emptyDir: {}\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service redis-cart') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
@@ -1235,7 +1381,14 @@ pipeline {
                         "  - name: redis\n" +
                         "    port: 6379\n" +
                         "    targetPort: 6379\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Deployment adservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
                         "kind: Deployment\n" +
                         "metadata:\n" +
@@ -1258,7 +1411,6 @@ pipeline {
                         "        env:\n" +
                         "        - name: PORT\n" +
                         "          value: \"9555\"\n" +
-                        "\n" +
                         "        resources:\n" +
                         "          requests:\n" +
                         "            cpu: 200m\n" +
@@ -1276,7 +1428,14 @@ pipeline {
                         "          periodSeconds: 15\n" +
                         "          exec:\n" +
                         "            command: [\"/bin/grpc_health_probe\", \"-addr=:9555\"]\n" +
-                        "---\n" +
+                        "EOF"
+            }
+        }
+        stage('online-boutique Service adservice') {
+            steps {
+                // Creating  a NameSpace kubectl-binary
+                echo "Creating ${appNameSpace} Application"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
                         "kind: Service\n" +
                         "metadata:\n" +
