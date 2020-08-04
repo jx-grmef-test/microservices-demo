@@ -34,11 +34,9 @@ pipeline {
                 echo '############################\n# Building adservice image #\n############################'
                 dir("src/adservice") {
                     sh "pwd"
-                    //            //script {
-                    //            //    app = docker.build("microservices-demo/image/adservice")
-                    //            //}
-                    //        }
-                    //    }
+                    script {
+                        app = docker.build("microservices-demo/image/adservice")
+                    }
                 }
             }
         }

@@ -31,16 +31,12 @@ pipeline {
         }
         stage('Build adservice image') {
             steps {
-                echo '############################
-                      # Building adservice image #
-                      ############################'
+                echo '############################\n# Building adservice image #\n############################'
                 dir("src/adservice") {
                     sh "pwd"
-                    //            //script {
-                    //            //    app = docker.build("microservices-demo/image/adservice")
-                    //            //}
-                    //        }
-                    //    }
+                    script {
+                        app = docker.build("microservices-demo/image/adservice")
+                    }
                 }
             }
         }
