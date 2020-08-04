@@ -29,9 +29,11 @@ pipeline {
                 sh 'pwd && ls -l && ls -l release '
             }
         }
-        stage('Build images') {
+        stage('Build adservice image') {
             steps {
-                echo 'Building adservice image'
+                echo '############################
+                      # Building adservice image #
+                      ############################'
                 dir("src/adservice") {
                     sh "pwd"
                     //            //script {
