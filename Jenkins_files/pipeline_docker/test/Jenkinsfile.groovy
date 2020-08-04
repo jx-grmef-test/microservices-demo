@@ -53,7 +53,7 @@ pipeline {
                         ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
                     script {
-                        def test = sh(returnStdout: true, script: 'pwd | awk -F \\"/\\" \'{print $NF}\'').trim()
+                        def test = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
                         echo "${test}"
                         imageName   = "adservice"
                         //imageName   = "adservice"
