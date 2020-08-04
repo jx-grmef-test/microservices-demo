@@ -709,7 +709,7 @@ pipeline {
                         "    spec:\n" +
                         "      containers:\n" +
                         "        - name: server\n" +
-                        "          image: ${nexusRegistry}/checkoutservice:v0.2.0\n" +
+                        "          image: ${nexusRegistry}/checkoutservice:${appVersion}\n" +
                         "          ports:\n" +
                         "          - containerPort: 5050\n" +
                         "          readinessProbe:\n" +
