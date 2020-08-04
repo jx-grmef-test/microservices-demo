@@ -88,15 +88,14 @@ pipeline {
             }
         }
         stage ('Clean images') {
-            echo "#############################\n" +
-                ("# Cleaning up Docker Images #\n" as java.lang.CharSequence) +
-                ("#############################" as java.lang.CharSequence)
+            steps {
+                echo "#############################\n" +
+                    ("# Cleaning up Docker Images #\n" as java.lang.CharSequence) +
+                    ("#############################" as java.lang.CharSequence)
 
-            echo "### Dangling all Containers, Images, and Volumes"
-            sh 'docker system prune -af --volumes'
-
-
-            //sh 'docker rmi $(docker images --filter=reference=' + ("${nexusRegistry}/${imageName}*" as java.lang.CharSequence) + (' -q)' as java.lang.CharSequence)
+                echo "### Dangling all Containers, Images, and Volumes"
+                sh 'docker system prune -af --volumes'
+           }
         }
     }
 }
