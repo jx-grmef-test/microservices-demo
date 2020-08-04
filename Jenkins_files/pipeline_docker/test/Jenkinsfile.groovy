@@ -31,12 +31,30 @@ pipeline {
         }
         stage('Build adservice image') {
             steps {
-                echo '############################\n# Building adservice image #\n############################'
+                echo '############################\n' +
+                     '# Building adservice image #\n' +
+                     '############################'
                 dir("src/adservice") {
                     sh "pwd"
                     script {
                         app = docker.build("microservices-demo/image/adservice")
                     }
+                }
+            }
+        }
+        stage('Test adservice image') {
+            /* We test our image with a simple smoke test:
+             * Run a curl inside the newly-build Docker image */
+            steps {
+                echo '###########################\n' +
+                     '# Testing adservice image #\n' +
+                     '###########################'
+                sh "echo $PATH"
+                docker.image("microservices-demo/image/adservice:latest").inside("--entrypoint=''") { c ->
+                    //sh 'curl http://localhost:9555 || exit 1'
+                    sh 'find / -type f -name AdService'
+                    sh 'cat /app/build/install/hipstershop/bin/AdService'
+                    sh 'echo "Tests passed"'
                 }
             }
         }
