@@ -51,7 +51,7 @@ pipeline {
                         ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
                         ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
-                    sh "pwd | awk -F \"/\" '{print $NF}'"
+                    sh 'pwd | awk -F \\"/\\" \'{print $NF}\''
                     script {
 
                         imageName   = "adservice"
@@ -91,7 +91,6 @@ pipeline {
                     ("######################################" as java.lang.CharSequence)
                     //sh "docker rmi $registry:$BUILD_NUMBER"
                 dir("src/adservice") {
-                    sh "pwd | awk -F \"/\" '{print $NF}'"
                     script {
 
                         //imageName   = "adservice"
