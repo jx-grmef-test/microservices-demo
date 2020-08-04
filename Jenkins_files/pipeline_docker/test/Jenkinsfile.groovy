@@ -77,27 +77,26 @@ pipeline {
                     }
                 }
                 echo "####################################\n" +
-                        ("# Pushing adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                        ("####################################" as java.lang.CharSequence)
+                    ("# Pushing adservice image ${devTag}#\n" as java.lang.CharSequence) +
+                    ("####################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
                 }
-                echo "######################################\n" +
-                    ("# Cleaning up unused adservice image #\n" as java.lang.CharSequence) +
-                    ("######################################" as java.lang.CharSequence)
-                    //sh "docker rmi $registry:$BUILD_NUMBER"
-                dir("src/adservice") {
-                    script {
-
-                        //imageName   = "adservice"
-                        //sh 'docker rmi $(docker images --filter=reference="http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/${imageName}*" -q)'
-                        sh 'docker rmi $(docker images --filter=reference=' + ("${nexusRegistry}/${imageName}*" as java.lang.CharSequence) + (' -q)' as java.lang.CharSequence)
-                    }
-                }
             }
+        }
+        stage ('Clean images') {
+            echo "#############################\n" +
+                ("# Cleaning up Docker Images #\n" as java.lang.CharSequence) +
+                ("#############################" as java.lang.CharSequence)
+
+            echo "### Dangling all Containers, Images, and Volumes"
+            sh 'docker system prune -af --volumes'
+
+
+            //sh 'docker rmi $(docker images --filter=reference=' + ("${nexusRegistry}/${imageName}*" as java.lang.CharSequence) + (' -q)' as java.lang.CharSequence)
         }
     }
 }
