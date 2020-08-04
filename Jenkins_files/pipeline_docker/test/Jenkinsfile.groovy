@@ -16,9 +16,7 @@ def app
 
 
 pipeline {
-    agent {
-        dockerfile true
-    }
+    agent any
 
     stages {
         stage('GitCheckout') {
@@ -36,9 +34,11 @@ pipeline {
                 echo 'Building adservice image'
                 dir("src/adservice") {
                     sh "pwd"
-                    //script {
-                    //    app = docker.build("microservices-demo/image/adservice")
-                    //}
+                    //            //script {
+                    //            //    app = docker.build("microservices-demo/image/adservice")
+                    //            //}
+                    //        }
+                    //    }
                 }
             }
         }
