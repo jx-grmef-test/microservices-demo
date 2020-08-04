@@ -12,6 +12,7 @@ def ingressHost = "frontend-external.apps.meflab.xyz"
 
 def app
 def imageName
+def dockerIimages
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 pipeline {
@@ -51,7 +52,8 @@ pipeline {
                         ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
                         ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
-                    sh(returnStdout: true, script: 'pwd | awk -F \\"/\\" \'{print $NF}\'').trim()
+                    def test = sh(returnStdout: true, script: 'pwd | awk -F \\"/\\" \'{print $NF}\'').trim()
+                    echo "${test}"
                     script {
 
                         imageName   = "adservice"
@@ -94,8 +96,8 @@ pipeline {
                     script {
 
                         //imageName   = "adservice"
-                        //imageName   = "adservice"
-                        sh "docker rmi \$(docker images --filter=reference=\"${nexusRegistry}/${imageName}*\" -q)"
+                        //sh 'docker rmi $(docker images --filter=reference="http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/${imageName}*" -q)'
+                        sh "docker rmi \$(docker images --filter=reference=\"http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/${imageName}*\" -q)"
                     }
                 }
             }
