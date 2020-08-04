@@ -11,6 +11,7 @@ def ingressName = "frontend-external"
 def ingressHost = "frontend-external.apps.meflab.xyz"
 
 def app
+def imageName
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 pipeline {
@@ -89,7 +90,14 @@ pipeline {
                     ("# Cleaning up unused adservice image #\n" as java.lang.CharSequence) +
                     ("######################################" as java.lang.CharSequence)
                     //sh "docker rmi $registry:$BUILD_NUMBER"
-                sh "docker rmi \$(docker images --filter=reference="${nexusRegistry}/${imageName}*" -q)"
+                dir("src/adservice") {
+                    sh "pwd | awk -F \"/\" '{print $NF}'"
+                    script {
+
+                        //imageName   = "adservice"
+                        //imageName   = "adservice"
+                        sh "docker rmi \$(docker images --filter=reference=\"${nexusRegistry}/${imageName}*\" -q)"
+                    }
                 }
             }
         }
