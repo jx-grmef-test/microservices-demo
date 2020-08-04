@@ -4,6 +4,7 @@ def projectName = "microservices-demo"
 
 // Kubernetes Config Variables
 def appNameSpace = "app-microservices-demo"
+def appVersion   = "latest"
 
 // Infress Vars
 def ingressName = "frontend-external"
@@ -610,6 +611,28 @@ pipeline {
                 echo "### Dangling all Containers, Images, and Volumes"
                 sh 'docker system prune -af --volumes'
            }
+        }
+
+        //#############################
+        //# Deploying The Application #
+        //#############################
+        stage('Create NameSpace') {
+            steps {
+                //Check if Namespace exist
+                script {
+                    def ns = sh(returnStdout: true, script: "kubectl get ns | awk '{print \$1}' | egrep '${appNameSpace}\$' > /dev/null && echo '1' || echo '0'").trim()
+                    //echo "Dir is ${dir} "
+                    if (ns == '0') {
+                        // Create a NameSpace
+                        echo "Creating ${appNameSpace} NameSpace"
+                        sh "kubectl create namespace ${appNameSpace}"
+                        sh "kubectl get ns | grep ${appNameSpace}"
+                    } else {
+                        echo "List ${appNameSpace} NameSpace"
+                        sh "kubectl get ns | grep ${appNameSpace}"
+                    }
+                }
+            }
         }
 
     }
