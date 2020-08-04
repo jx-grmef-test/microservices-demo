@@ -94,7 +94,7 @@ pipeline {
 
                         //imageName   = "adservice"
                         //sh 'docker rmi $(docker images --filter=reference="http://nexus-docker.apps.meflab.xyz/repository/microservices-demo/${imageName}*" -q)'
-                        sh "docker rmi \$(docker images --filter=reference=${nexusRegistry}/${imageName}* -q)"
+                        sh "docker rmi $(docker images --filter=reference=${nexusRegistry}/${imageName}* -q)"
                     }
                 }
             }
