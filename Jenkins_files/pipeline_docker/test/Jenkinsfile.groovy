@@ -47,8 +47,8 @@ pipeline {
         stage('Build adservice image') {
             steps {
                 echo "#####################################\n" +
-                    ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                    ("#####################################" as java.lang.CharSequence)
+                        ("# Building adservice image ${devTag}#\n" as java.lang.CharSequence) +
+                        ("#####################################" as java.lang.CharSequence)
                 dir("src/adservice") {
                     sh "pwd"
                     script {
@@ -64,8 +64,8 @@ pipeline {
              * Run a curl inside the newly-build Docker image */
             steps {
                 echo "####################################\n" +
-                    ("# Testing adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                    ("####################################" as java.lang.CharSequence)
+                        ("# Testing adservice image ${devTag}#\n" as java.lang.CharSequence) +
+                        ("####################################" as java.lang.CharSequence)
                 sh "echo $PATH"
                 script {
                     docker.image("microservices-demo/image/adservice:latest").inside("--entrypoint=''") { c ->
@@ -76,13 +76,13 @@ pipeline {
                     }
                 }
                 echo "####################################\n" +
-                    ("# Pushing adservice image ${devTag}#\n" as java.lang.CharSequence) +
-                    ("####################################" as java.lang.CharSequence)
+                        ("# Pushing adservice image ${devTag}#\n" as java.lang.CharSequence) +
+                        ("####################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
                         app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    docker.tag("${imageName}:latest", "tasks:${devTag}")
+                        app.push("${imageName}:latest", "tasks:${devTag}")
+                        //docker.tag("${imageName}:latest", "tasks:${devTag}")
                     }
                 }
             }
