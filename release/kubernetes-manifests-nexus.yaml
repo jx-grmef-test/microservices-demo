@@ -493,25 +493,24 @@ spec:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
       terminationGracePeriodSeconds: 5
-      restartPolicy: Always
       imagePullSecrets:
         - name: nexus-registry-key
+      restartPolicy: Always
       containers:
-      - name: main
-        image: nexus-docker.apps.meflab.xyz/microservices-demo/image/loadgenerator:latest
-        imagePullPolicy: Always
-        env:
-        - name: FRONTEND_ADDR
-          value: "frontend:80"
-        - name: USERS
-          value: "10"
-        resources:
-          requests:
-            cpu: 300m
-            memory: 256Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
+        - name: main
+          image: nexus-docker.apps.meflab.xyz/microservices-demo/image/loadgenerator:latest
+          env:
+            - name: FRONTEND_ADDR
+              value: "frontend:80"
+            - name: USERS
+              value: "10"
+          resources:
+            requests:
+              cpu: 300m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
 ---
 apiVersion: apps/v1
 kind: Deployment
