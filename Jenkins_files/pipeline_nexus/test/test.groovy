@@ -1,22 +1,22 @@
 // Project variables
 
-def projectName = "microservices-demo"
+def projectName = "microservices-demo" as java.lang.Object
 
 // Kubernetes Config Variables
-def appNameSpace = "app-microservices-demo"
-def appVersion = "latest"
+def appNameSpace = "app-microservices-demo" as java.lang.Object
+def appVersion = "latest" as java.lang.Object
 
-// Infress Vars
-def ingressName = "frontend-external"
-def ingressHost = "frontend-external.apps.meflab.xyz"
+// Ingress Vars
+def ingressName = "frontend-external" as java.lang.Object
+def ingressHost = "frontend-external.apps.meflab.xyz" as java.lang.Object
 
 // Nexus Container Registry Service
-def nexusRegistry = "http://nexus-docker.apps.meflab.xyz/repository/microservices-demo"
-def nexusPassword = "nexus-password"
+def nexusRegistry = "nexus-docker.apps.meflab.xyz/repository/microservices-demo" as java.lang.Object
+def nexusPassword = "nexus-password" as java.lang.Object
 
 def app
 def imageName
-def dockerIimages
+
 
 
 // Project variables
@@ -93,8 +93,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -143,8 +144,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("###################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -193,8 +195,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("########################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -243,8 +246,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("########################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -293,8 +297,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#####################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -344,7 +349,8 @@ pipeline {
                         ("#################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -393,8 +399,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("######################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -444,7 +451,8 @@ pipeline {
                         ("######################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -493,8 +501,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#############################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -543,8 +552,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#############################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -593,8 +603,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#######################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -635,7 +646,6 @@ pipeline {
         }
         stage('online-boutique Deployment emailservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -682,7 +692,6 @@ pipeline {
         }
         stage('online-boutique Service emailservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "---\n" +
@@ -703,7 +712,6 @@ pipeline {
         }
         stage('online-boutique Deployment checkoutservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -757,7 +765,6 @@ pipeline {
         }
         stage('online-boutique Service checkoutservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -777,7 +784,6 @@ pipeline {
         }
         stage('online-boutique Deployment recommendationservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -824,7 +830,6 @@ pipeline {
         }
         stage('online-boutique Service recommendationservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -844,7 +849,6 @@ pipeline {
         }
         stage('online-boutique Deployment frontend') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -914,7 +918,6 @@ pipeline {
         }
         stage('online-boutique Service frontend') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -934,7 +937,6 @@ pipeline {
         }
         stage('online-boutique Service frontend-external') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -954,7 +956,6 @@ pipeline {
         }
         stage('online-boutique Deployment paymentservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -997,7 +998,6 @@ pipeline {
         }
         stage('online-boutique Service paymentservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -1017,7 +1017,6 @@ pipeline {
         }
         stage('online-boutique Deployment productcatalogservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -1060,7 +1059,6 @@ pipeline {
         }
         stage('online-boutique Service productcatalogservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -1080,7 +1078,6 @@ pipeline {
         }
         stage('online-boutique Deployment cartservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -1130,7 +1127,6 @@ pipeline {
         }
         stage('online-boutique Service cartservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -1150,7 +1146,6 @@ pipeline {
         }
         stage('online-boutique Deployment loadgenerator') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -1191,7 +1186,6 @@ pipeline {
         }
         stage('online-boutique Deployment currencyservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -1235,7 +1229,6 @@ pipeline {
         }
         stage('online-boutique Service currencyservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -1255,7 +1248,6 @@ pipeline {
         }
         stage('online-boutique Deployment shippingservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -1298,7 +1290,6 @@ pipeline {
         }
         stage('online-boutique Service shippingservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -1318,7 +1309,6 @@ pipeline {
         }
         stage('online-boutique Deployment redis-cart') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "---\n" +
@@ -1366,7 +1356,6 @@ pipeline {
         }
         stage('online-boutique Service redis-cart') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +
@@ -1386,7 +1375,6 @@ pipeline {
         }
         stage('online-boutique Deployment adservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: apps/v1\n" +
@@ -1433,7 +1421,6 @@ pipeline {
         }
         stage('online-boutique Service adservice') {
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} Application"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: v1\n" +

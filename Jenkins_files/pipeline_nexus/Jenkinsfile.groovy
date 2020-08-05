@@ -14,7 +14,7 @@ def ingressName = "frontend-external" as java.lang.Object
 def ingressHost = "frontend-external.apps.meflab.xyz" as java.lang.Object
 
 // Nexus Container Registry Service
-def nexusRegistry = "http://nexus-docker.apps.meflab.xyz/repository/microservices-demo" as java.lang.Object
+def nexusRegistry = "nexus-docker.apps.meflab.xyz/repository/microservices-demo" as java.lang.Object
 def nexusPassword = "nexus-password" as java.lang.Object
 
 def app
@@ -29,7 +29,7 @@ pipeline {
 
         // Tags
         devTag = "0.0-0"
-        version = "v1"
+        version = "1.0"
 
     }
     stages {
@@ -88,8 +88,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -138,8 +139,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("###################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -188,8 +190,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("########################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -238,8 +241,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("########################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -288,8 +292,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#####################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -338,8 +343,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -388,8 +394,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("######################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -438,8 +445,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("######################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -488,8 +496,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#############################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -538,8 +547,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#############################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
@@ -588,8 +598,9 @@ pipeline {
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
                         ("#######################################" as java.lang.CharSequence)
                 script {
-                    docker.withRegistry("${nexusRegistry}", "${nexusPassword}") {
-                        app.push("${env.BUILD_NUMBER}")
+                    docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
+                        //app.push("${env.BUILD_NUMBER}")
+                        app.push("${devTag}")
                         app.push("latest")
                     }
                 }
