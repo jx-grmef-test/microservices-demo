@@ -59,9 +59,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "##################################\n" +
+                        echo "###################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("##################################" as java.lang.CharSequence)
+                                ("###################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -73,9 +73,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "#################################\n" +
+                echo "##################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("#################################" as java.lang.CharSequence)
+                        ("##################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -84,9 +84,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "#################################\n" +
+                echo "##################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("#################################" as java.lang.CharSequence)
+                        ("##################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
                         //app.push("${env.BUILD_NUMBER}")
@@ -109,9 +109,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "####################################\n" +
+                        echo "#####################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("####################################" as java.lang.CharSequence)
+                                ("#####################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -124,9 +124,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "###################################\n" +
+                echo "####################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("####################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -135,9 +135,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "###################################\n" +
+                echo "####################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("###################################" as java.lang.CharSequence)
+                        ("####################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
                         //app.push("${env.BUILD_NUMBER}")
@@ -160,9 +160,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "########################################\n" +
+                        echo "#########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("########################################" as java.lang.CharSequence)
+                                ("#########################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -211,9 +211,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "########################################\n" +
+                        echo "#########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("########################################" as java.lang.CharSequence)
+                                ("#########################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -262,9 +262,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "#####################################\n" +
+                        echo "######################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("#####################################" as java.lang.CharSequence)
+                                ("######################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -313,9 +313,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "#################################\n" +
+                        echo "##################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("#################################" as java.lang.CharSequence)
+                                ("##################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -364,9 +364,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "######################################\n" +
+                        echo "#######################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("######################################" as java.lang.CharSequence)
+                                ("#######################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -415,9 +415,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "#######################################\n" +
+                        echo "########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("#######################################" as java.lang.CharSequence)
+                                ("########################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -430,9 +430,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "######################################\n" +
+                echo "#######################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("######################################" as java.lang.CharSequence)
+                        ("#######################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -441,9 +441,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "######################################\n" +
+                echo "#######################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("######################################" as java.lang.CharSequence)
+                        ("#######################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
                         //app.push("${env.BUILD_NUMBER}")
@@ -466,9 +466,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "##############################################\n" +
+                        echo "###############################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("##############################################" as java.lang.CharSequence)
+                                ("###############################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -481,9 +481,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "#############################################\n" +
+                echo "##############################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("#############################################" as java.lang.CharSequence)
+                        ("##############################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -492,9 +492,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "#############################################\n" +
+                echo "##############################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("#############################################" as java.lang.CharSequence)
+                        ("##############################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
                         //app.push("${env.BUILD_NUMBER}")
@@ -517,9 +517,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "##############################################\n" +
+                        echo "###############################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("##############################################" as java.lang.CharSequence)
+                                ("###############################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -532,9 +532,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "#############################################\n" +
+                echo "##############################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("#############################################" as java.lang.CharSequence)
+                        ("##############################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -543,9 +543,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "#############################################\n" +
+                echo "##############################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("#############################################" as java.lang.CharSequence)
+                        ("##############################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
                         //app.push("${env.BUILD_NUMBER}")
@@ -568,9 +568,9 @@ pipeline {
                         // .trim removes leading and trailing whitespace from the string
                         imageName = sh(returnStdout: true, script: "pwd | awk -F \"/\" '{print \$NF}'").trim()
 
-                        echo "########################################\n" +
+                        echo "#########################################\n" +
                                 ("# Building ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                                ("########################################" as java.lang.CharSequence)
+                                ("#########################################" as java.lang.CharSequence)
 
                         app = docker.build("${projectName}/image/${imageName}")
                     }
@@ -583,9 +583,9 @@ pipeline {
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
-                echo "#######################################\n" +
+                echo "########################################\n" +
                         ("# Testing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("#######################################" as java.lang.CharSequence)
+                        ("########################################" as java.lang.CharSequence)
 
                 script {
                     docker.image("${projectName}/image/${imageName}:latest").inside("--entrypoint=''") { c ->
@@ -594,9 +594,9 @@ pipeline {
                         sh "echo \"Tests ${imageName} passed\""
                     }
                 }
-                echo "#######################################\n" +
+                echo "########################################\n" +
                         ("# Pushing ${imageName} image ${devTag} #\n" as java.lang.CharSequence) +
-                        ("#######################################" as java.lang.CharSequence)
+                        ("########################################" as java.lang.CharSequence)
                 script {
                     docker.withRegistry("http://${nexusRegistry}", "${nexusPassword}") {
                         //app.push("${env.BUILD_NUMBER}")
@@ -707,7 +707,7 @@ pipeline {
         //# Cleaning Images #
         //###################
         stage('Clean images') {
-            when { equals expected: true, actual: "Clean images" }
+            //when { equals expected: true, actual: "Clean images" }
             steps {
                 echo "###########################\n" +
                         ("# Cleaning up Docker Images #\n" as java.lang.CharSequence) +
