@@ -30,9 +30,12 @@ spec:
         app: emailservice
     spec:
       terminationGracePeriodSeconds: 5
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: server
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/emailservice:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
@@ -84,9 +87,12 @@ spec:
       labels:
         app: checkoutservice
     spec:
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
         - name: server
           image: nexus-docker.apps.meflab.xyz/microservices-demo/image/checkoutservice:latest
+          imagePullPolicy: Always
           ports:
           - containerPort: 5050
           readinessProbe:
@@ -110,6 +116,14 @@ spec:
             value: "currencyservice:7000"
           - name: CART_SERVICE_ADDR
             value: "cartservice:7070"
+          # - name: DISABLE_STATS
+          #   value: "1"
+          # - name: DISABLE_TRACING
+          #   value: "1"
+          # - name: DISABLE_PROFILER
+          #   value: "1"
+          # - name: JAEGER_SERVICE_ADDR
+          #   value: "jaeger-collector:14268"
           resources:
             requests:
               cpu: 100m
@@ -145,9 +159,12 @@ spec:
         app: recommendationservice
     spec:
       terminationGracePeriodSeconds: 5
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: server
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/recommendationservice:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -163,6 +180,12 @@ spec:
           value: "8080"
         - name: PRODUCT_CATALOG_SERVICE_ADDR
           value: "productcatalogservice:3550"
+        # - name: DISABLE_TRACING
+        #   value: "1"
+        # - name: DISABLE_PROFILER
+        #   value: "1"
+        # - name: DISABLE_DEBUGGER
+        #   value: "1"
         resources:
           requests:
             cpu: 100m
@@ -199,9 +222,12 @@ spec:
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
         - name: server
           image: nexus-docker.apps.meflab.xyz/microservices-demo/image/frontend:latest
+          imagePullPolicy: Always
           ports:
           - containerPort: 8080
           readinessProbe:
@@ -239,6 +265,12 @@ spec:
             value: "adservice:9555"
           - name: ENV_PLATFORM
             value: "gcp"
+          # - name: DISABLE_TRACING
+          #   value: "1"
+          # - name: DISABLE_PROFILER
+          #   value: "1"
+          # - name: JAEGER_SERVICE_ADDR
+          #   value: "jaeger-collector:14268"
           resources:
             requests:
               cpu: 100m
@@ -287,9 +319,12 @@ spec:
         app: paymentservice
     spec:
       terminationGracePeriodSeconds: 5
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: server
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/paymentservice:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 50051
         env:
@@ -336,14 +371,25 @@ spec:
         app: productcatalogservice
     spec:
       terminationGracePeriodSeconds: 5
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: server
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/productcatalogservice:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3550
         env:
         - name: PORT
           value: "3550"
+        # - name: DISABLE_STATS
+        #   value: "1"
+        # - name: DISABLE_TRACING
+        #   value: "1"
+        # - name: DISABLE_PROFILER
+        #   value: "1"
+        # - name: JAEGER_SERVICE_ADDR
+        #   value: "jaeger-collector:14268"
         readinessProbe:
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:3550"]
@@ -385,9 +431,12 @@ spec:
         app: cartservice
     spec:
       terminationGracePeriodSeconds: 5
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: server
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/cartservice:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 7070
         env:
@@ -445,9 +494,12 @@ spec:
     spec:
       terminationGracePeriodSeconds: 5
       restartPolicy: Always
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: main
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/loadgenerator:latest
+        imagePullPolicy: Always
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -475,15 +527,24 @@ spec:
         app: currencyservice
     spec:
       terminationGracePeriodSeconds: 5
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: server
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/currencyservice:latest
+        imagePullPolicy: Always
         ports:
         - name: grpc
           containerPort: 7000
         env:
         - name: PORT
           value: "7000"
+        # - name: DISABLE_TRACING
+        #   value: "1"
+        # - name: DISABLE_PROFILER
+        #   value: "1"
+        # - name: DISABLE_DEBUGGER
+        #   value: "1"
         readinessProbe:
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:7000"]
@@ -524,14 +585,25 @@ spec:
       labels:
         app: shippingservice
     spec:
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: server
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/shippingservice:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 50051
         env:
         - name: PORT
           value: "50051"
+        # - name: DISABLE_STATS
+        #   value: "1"
+        # - name: DISABLE_TRACING
+        #   value: "1"
+        # - name: DISABLE_PROFILER
+        #   value: "1"
+        # - name: JAEGER_SERVICE_ADDR
+        #   value: "jaeger-collector:14268"
         readinessProbe:
           periodSeconds: 5
           exec:
@@ -627,14 +699,23 @@ spec:
         app: adservice
     spec:
       terminationGracePeriodSeconds: 5
+      imagePullSecrets:
+        - name: nexus-registry-key
       containers:
       - name: server
         image: nexus-docker.apps.meflab.xyz/microservices-demo/image/adservice:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 9555
         env:
         - name: PORT
           value: "9555"
+        # - name: DISABLE_STATS
+        #   value: "1"
+        # - name: DISABLE_TRACING
+        #   value: "1"
+        #- name: JAEGER_SERVICE_ADDR
+        #  value: "jaeger-collector:14268"
         resources:
           requests:
             cpu: 200m
