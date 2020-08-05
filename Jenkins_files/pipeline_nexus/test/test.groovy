@@ -32,8 +32,7 @@ pipeline {
 
         // Tags
         devTag = "0.0-0"
-        prodTag = "0.0"
-        version = "v1"
+        version = "1.0"
     }
     stages {
         stage('GitCheckout') {
@@ -46,7 +45,7 @@ pipeline {
                 script {
 
                     // Set the tag for the development image: version + build number
-                    devTag = "${version}-" + currentBuild.number
+                    devTag = "${version}-" + "${currentBuild.number}"
                     // Set the tag for the production image: version
                     prodTag = "${version}"
                 }
@@ -1435,6 +1434,30 @@ pipeline {
                         "  - name: grpc\n" +
                         "    port: 9555\n" +
                         "    targetPort: 9555" +
+                        "EOF"
+            }
+        }
+        stage('Crete App Ingress') {
+            //when { equals expected: true, actual: "Crete App Ingress" }
+            steps {
+                echo "Creating ${appNameSpace} frontend Ingress"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
+                        "apiVersion: extensions/v1beta1\n" +
+                        "kind: Ingress\n" +
+                        "metadata:\n" +
+                        "  name: ${ingressName}\n" +
+                        "  namespace: ${appNameSpace}\n" +
+                        "  annotations:\n" +
+                        "    nginx.ingress.kubernetes.io/ssl-redirect: \"false\"\n" +
+                        "    nginx.ingress.kubernetes.io/proxy-body-size: \"0\"\n" +
+                        "spec:\n" +
+                        "  rules:\n" +
+                        "    - host: ${ingressHost}\n" +
+                        "      http:\n" +
+                        "        paths:\n" +
+                        "          - backend:\n" +
+                        "              serviceName: frontend-external\n" +
+                        "              servicePort: 80\n" +
                         "EOF"
             }
         }
