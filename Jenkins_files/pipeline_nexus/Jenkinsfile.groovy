@@ -2,20 +2,20 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Project variables
-
-def projectName = "microservices-demo"
+def projectName = "microservices-demo" as java.lang.Object
 
 // Kubernetes Config Variables
-def appNameSpace = "app-microservices-demo"
-def dockerKey    = "nexus-registry-key"
-def dockerConfigJson = "ewoJImF1dGhzIjogewoJCSJuZXh1cy1kb2NrZXIuYXBwcy5tZWZsYWIueHl6IjogewoJCQkiYXV0aCI6ICJZV1J0YVc0NllXUnRhVzR4TWpNMFlXUnRhVzQ9IgoJCX0KCX0sCgkiSHR0cEhlYWRlcnMiOiB7CgkJIlVzZXItQWdlbnQiOiAiRG9ja2VyLUNsaWVudC8xOS4wMy4xMiAobGludXgpIgoJfQp9"
-// Infress Vars
-def ingressName = "frontend-external"
-def ingressHost = "frontend-external.apps.meflab.xyz"
+def appNameSpace = "app-microservices-demo" as java.lang.Object
+def dockerKey    = "nexus-registry-key" as java.lang.Object
+def dockerConfigJson = "ewoJImF1dGhzIjogewoJCSJuZXh1cy1kb2NrZXIuYXBwcy5tZWZsYWIueHl6IjogewoJCQkiYXV0aCI6ICJZV1J0YVc0NllXUnRhVzR4TWpNMFlXUnRhVzQ9IgoJCX0KCX0sCgkiSHR0cEhlYWRlcnMiOiB7CgkJIlVzZXItQWdlbnQiOiAiRG9ja2VyLUNsaWVudC8xOS4wMy4xMiAobGludXgpIgoJfQp9" as java.lang.Object
+
+// Ingress Vars
+def ingressName = "frontend-external" as java.lang.Object
+def ingressHost = "frontend-external.apps.meflab.xyz" as java.lang.Object
 
 // Nexus Container Registry Service
-def nexusRegistry = "http://nexus-docker.apps.meflab.xyz/repository/microservices-demo"
-def nexusPassword = "nexus-password"
+def nexusRegistry = "http://nexus-docker.apps.meflab.xyz/repository/microservices-demo" as java.lang.Object
+def nexusPassword = "nexus-password" as java.lang.Object
 
 def app
 def imageName
@@ -29,8 +29,8 @@ pipeline {
 
         // Tags
         devTag = "0.0-0"
-        prodTag = "0.0"
         version = "v1"
+
     }
     stages {
         stage('GitCheckout') {
@@ -43,9 +43,7 @@ pipeline {
                 script {
 
                     // Set the tag for the development image: version + build number
-                    devTag = "${version}-" + currentBuild.number
-                    // Set the tag for the production image: version
-                    prodTag = "${version}"
+                    devTag = "${version}-" + "${currentBuild.number}"
                 }
             }
         }
@@ -53,7 +51,7 @@ pipeline {
         //# adservice #
         //#############
         stage('Build adservice image') {
-            when { equals expected: true, actual: "Build adservice image" }
+            //when { equals expected: true, actual: "Build adservice image" }
             steps {
                 dir("src/adservice") {
                     script {
@@ -71,7 +69,7 @@ pipeline {
             }
         }
         stage('Test and Push adservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push adservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push adservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -102,7 +100,7 @@ pipeline {
         //# cartservice #
         //###############
         stage('Build cartservice image') {
-            when { equals expected: true, actual: "Build cartservice image" }
+            //when { equals expected: true, actual: "Build cartservice image" }
             steps {
                 dir("src/cartservice") {
                     script {
@@ -121,7 +119,7 @@ pipeline {
         }
 
         stage('Test and Push cartservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push cartservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push cartservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -152,7 +150,7 @@ pipeline {
         //# checkoutservice #
         //###################
         stage('Build checkoutservice image') {
-            when { equals expected: true, actual: "Build checkoutservice image" }
+            //when { equals expected: true, actual: "Build checkoutservice image" }
             steps {
                 dir("src/checkoutservice") {
                     script {
@@ -171,7 +169,7 @@ pipeline {
         }
 
         stage('Test and Push checkoutservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push checkoutservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push checkoutservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -202,7 +200,7 @@ pipeline {
         //# currencyservice #
         //###################
         stage('Build currencyservice image') {
-            when { equals expected: true, actual: "Build currencyservice image" }
+            //when { equals expected: true, actual: "Build currencyservice image" }
             steps {
                 dir("src/currencyservice") {
                     script {
@@ -221,7 +219,7 @@ pipeline {
         }
 
         stage('Test and Push currencyservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push currencyservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push currencyservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -252,7 +250,7 @@ pipeline {
         //# emailservice #
         //################
         stage('Build emailservice image') {
-            when { equals expected: true, actual: "Build emailservice image" }
+            //when { equals expected: true, actual: "Build emailservice image" }
             steps {
                 dir("src/emailservice") {
                     script {
@@ -271,7 +269,7 @@ pipeline {
         }
 
         stage('Test and Push emailservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push emailservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push emailservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -302,7 +300,7 @@ pipeline {
         //# frontend #
         //############
         stage('Build frontend image') {
-            when { equals expected: true, actual: "Build frontend image" }
+            //when { equals expected: true, actual: "Build frontend image" }
             steps {
                 dir("src/frontend") {
                     script {
@@ -321,7 +319,7 @@ pipeline {
         }
 
         stage('Test and Push frontend image to Nexus') {
-            when { equals expected: true, actual: "Test and Push frontend image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push frontend image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -352,7 +350,7 @@ pipeline {
         //# loadgenerator #
         //#################
         stage('Build loadgenerator image') {
-            when { equals expected: true, actual: "Build loadgenerator image" }
+            //when { equals expected: true, actual: "Build loadgenerator image" }
             steps {
                 dir("src/loadgenerator") {
                     script {
@@ -371,7 +369,7 @@ pipeline {
         }
 
         stage('Test and Push loadgenerator image to Nexus') {
-            when { equals expected: true, actual: "Test and Push loadgenerator image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push loadgenerator image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -402,7 +400,7 @@ pipeline {
         //# paymentservice #
         //##################
         stage('Build paymentservice image') {
-            when { equals expected: true, actual: "Build paymentservice image" }
+            //when { equals expected: true, actual: "Build paymentservice image" }
             steps {
                 dir("src/paymentservice") {
                     script {
@@ -421,7 +419,7 @@ pipeline {
         }
 
         stage('Test and Push paymentservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push paymentservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push paymentservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -452,7 +450,7 @@ pipeline {
         //# productcatalogservice #
         //#########################
         stage('Build productcatalogservice image') {
-            when { equals expected: true, actual: "Build productcatalogservice image" }
+            //when { equals expected: true, actual: "Build productcatalogservice image" }
             steps {
                 dir("src/productcatalogservice") {
                     script {
@@ -471,7 +469,7 @@ pipeline {
         }
 
         stage('Test and Push productcatalogservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push productcatalogservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push productcatalogservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -502,7 +500,7 @@ pipeline {
         //# recommendationservice #
         //#########################
         stage('Build recommendationservice image') {
-            when { equals expected: true, actual: "Build recommendationservice image" }
+            //when { equals expected: true, actual: "Build recommendationservice image" }
             steps {
                 dir("src/recommendationservice") {
                     script {
@@ -521,7 +519,7 @@ pipeline {
         }
 
         stage('Test and Push recommendationservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push recommendationservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push recommendationservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -552,7 +550,7 @@ pipeline {
         //# shippingservice #
         //###################
         stage('Build shippingservice image') {
-            when { equals expected: true, actual: "Build shippingservice image" }
+            //when { equals expected: true, actual: "Build shippingservice image" }
             steps {
                 dir("src/shippingservice") {
                     script {
@@ -571,7 +569,7 @@ pipeline {
         }
 
         stage('Test and Push shippingservice image to Nexus') {
-            when { equals expected: true, actual: "Test and Push shippingservice image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push shippingservice image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -603,6 +601,7 @@ pipeline {
         //# Deploying The Application #
         //#############################
         stage('Create NameSpace') {
+            //when { equals expected: true, actual: "Create NameSpace" }
             steps {
                 //Check if Namespace exist
                 script {
@@ -621,6 +620,7 @@ pipeline {
             }
         }
         stage('Create Docker Secrete for online-boutique') {
+            //when { equals expected: true, actual: "Create Docker Secrete for online-boutique" }
             steps {
                 echo "Deploying ${dockerKey} in ${appNameSpace} Namespace"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
@@ -636,6 +636,7 @@ pipeline {
             }
         }
         stage('Deploy online-boutique') {
+            //when { equals expected: true, actual: "Deploy online-boutique" }
             steps {
                 sh 'pwd && ls -l && ls -l release '
                 echo "Deploying ${projectName} in ${appNameSpace} Namespace"

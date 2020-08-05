@@ -1,16 +1,16 @@
 // Project variables
-def projectName = "microservices-demo"
-def projectKubectlVersion = "v1.18.6"
-def projectKubeCtlDir = "kubectl_binary"
-def projectKubeConfigDir = ".kube"
+def projectName = "microservices-demo" as java.lang.Object
+def projectKubectlVersion = "v1.18.6" as java.lang.Object
+def projectKubeCtlDir = "kubectl_binary" as java.lang.Object
+def projectKubeConfigDir = ".kube" as java.lang.Object
 
 // Kubernetes Config Variables
-def appNameSpace = "app-microservices-demo"
-def kubeConfigDir = "/root/.kube"
+def appNameSpace = "app-microservices-demo" as java.lang.Object
+def kubeConfigDir = "/root/.kube" as java.lang.Object
 
-// Infress Vars
-def ingressName = "frontend-external"
-def ingressHost = "frontend-external.apps.meflab.xyz"
+// Ingress Vars
+def ingressName = "frontend-external" as java.lang.Object
+def ingressHost = "frontend-external.apps.meflab.xyz" as java.lang.Object
 
 pipeline {
     agent any
@@ -23,7 +23,7 @@ pipeline {
                 sh 'pwd && ls -l && ls -l release '
             }
         }
-        stage('InstallKubeCtl') {
+        /* stage('InstallKubeCtl') {
             steps {
                 // Relocate kubectl-binary
                 sh "cp  /var/jenkins_home/workspace/${projectName}/kubernetes-configs/${projectKubeCtlDir}/${projectKubectlVersion}/kubectl /usr/local/bin/"
@@ -59,7 +59,7 @@ pipeline {
                 echo 'Check Cluster access'
                 sh 'kubectl get ns'
             }
-        }
+        }*/
         stage('Create NameSpace') {
             steps {
                 //Check if Namespace exist
@@ -80,9 +80,8 @@ pipeline {
         }
         stage('Deploy online-boutique') {
             steps {
-                // Create a NameSpace kubectl-binary
                 echo "Deploying ${projectName} in ${appNameSpace} Namespace"
-                sh "kubectl -n ${appNameSpace} apply -f ./release/kubernetes-manifests.yaml"
+                sh "kubectl -n ${appNameSpace} apply -f ./release/kubernetes-manifests-nexus.yaml"
             }
         }
         stage('pods Verification') {
@@ -124,20 +123,6 @@ pipeline {
                         "              serviceName: frontend-external\n" +
                         "              servicePort: 80\n" +
                         "EOF"
-            }
-        }
-        stage('Save Artifact') {
-            steps {
-                // Create a NameSpace kubectl-binary
-                echo "Deploying ${projectName} in ${appNameSpace} Namespace"
-                sh "kubectl -n ${appNameSpace} apply -f ./release/kubernetes-manifests.yaml"
-                nexusArtifactUploader credentialsId: 'nexus-password',
-                        groupId: 'com.microservices',
-                        nexusUrl: 'nexus.apps.meflab.xyz',
-                        nexusVersion: 'nexus3',
-                        protocol: 'http',
-                        repository: 'microservices-demo',
-                        version: '1'
             }
         }
     }
