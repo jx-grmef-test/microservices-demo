@@ -352,7 +352,7 @@ pipeline {
         //# loadgenerator #
         //#################
         stage('Build loadgenerator image') {
-            //when { equals expected: true, actual: "Build loadgenerator image" }
+            when { equals expected: true, actual: "Build loadgenerator image" }
             steps {
                 dir("src/loadgenerator") {
                     script {
@@ -371,7 +371,7 @@ pipeline {
         }
 
         stage('Test and Push loadgenerator image to Nexus') {
-            //when { equals expected: true, actual: "Test and Push loadgenerator image to Nexus" }
+            when { equals expected: true, actual: "Test and Push loadgenerator image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
@@ -597,17 +597,7 @@ pipeline {
                 }
             }
         }
-        stage('Clean images') {
-            when { equals expected: true, actual: "Clean images" }
-            steps {
-                echo "###########################\n" +
-                        ("# Cleaning up Docker Images #\n" as java.lang.CharSequence) +
-                        ("###########################" as java.lang.CharSequence)
 
-                echo "### Dangling all Containers, Images, and Volumes"
-                sh 'docker system prune -af --volumes'
-            }
-        }
 
         //#############################
         //# Deploying The Application #
@@ -653,9 +643,8 @@ pipeline {
             }
         }
         stage('pods Verification') {
-            when { equals expected: true, actual: "pods Verification" }
+            //when { equals expected: true, actual: "pods Verification" }
             steps {
-                // Create a NameSpace kubectl-binary
                 echo "See if pods are in a Ready state"
                 sh "kubectl -n ${appNameSpace} wait --for=condition=ready --timeout=300s pods -l app=adservice"
                 sh "kubectl -n ${appNameSpace} wait --for=condition=ready --timeout=300s pods -l app=cartservice"
@@ -671,9 +660,8 @@ pipeline {
             }
         }
         stage('Crete App Ingress') {
-            when { equals expected: true, actual: "Crete App Ingress" }
+            //when { equals expected: true, actual: "Crete App Ingress" }
             steps {
-                // Creating  a NameSpace kubectl-binary
                 echo "Creating ${appNameSpace} frontend Ingress"
                 sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
                         "apiVersion: extensions/v1beta1\n" +
@@ -693,6 +681,28 @@ pipeline {
                         "              serviceName: frontend-external\n" +
                         "              servicePort: 80\n" +
                         "EOF"
+            }
+        }
+        stage('Test online-boutique URL') {
+            steps {
+                echo "Testing online-boutique URL"
+                sh 'sleep 10'
+                sh "curl -iv ${ingressHost}"
+            }
+        }
+
+        //###################
+        //# Cleaning Images #
+        //###################
+        stage('Clean images') {
+            when { equals expected: true, actual: "Clean images" }
+            steps {
+                echo "###########################\n" +
+                        ("# Cleaning up Docker Images #\n" as java.lang.CharSequence) +
+                        ("###########################" as java.lang.CharSequence)
+
+                echo "### Dangling all Containers, Images, and Volumes"
+                sh 'docker system prune -af --volumes'
             }
         }
     }
