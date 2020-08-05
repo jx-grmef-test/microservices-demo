@@ -352,7 +352,7 @@ pipeline {
         //# loadgenerator #
         //#################
         stage('Build loadgenerator image') {
-            when { equals expected: true, actual: "Build loadgenerator image" }
+            //when { equals expected: true, actual: "Build loadgenerator image" }
             steps {
                 dir("src/loadgenerator") {
                     script {
@@ -371,7 +371,7 @@ pipeline {
         }
 
         stage('Test and Push loadgenerator image to Nexus') {
-            when { equals expected: true, actual: "Test and Push loadgenerator image to Nexus" }
+            //when { equals expected: true, actual: "Test and Push loadgenerator image to Nexus" }
             /* We test our image with a simple smoke test:
              * Run a curl inside the newly-build Docker image */
             steps {
