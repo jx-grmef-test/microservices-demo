@@ -7,7 +7,8 @@ def projectName = "microservices-demo"
 
 // Kubernetes Config Variables
 def appNameSpace = "app-microservices-demo"
-
+def dockerKey    = "nexus-registry-key"
+def dockerConfigJson = "ewoJImF1dGhzIjogewoJCSJuZXh1cy1kb2NrZXIuYXBwcy5tZWZsYWIueHl6IjogewoJCQkiYXV0aCI6ICJZV1J0YVc0NllXUnRhVzR4TWpNMFlXUnRhVzQ9IgoJCX0KCX0sCgkiSHR0cEhlYWRlcnMiOiB7CgkJIlVzZXItQWdlbnQiOiAiRG9ja2VyLUNsaWVudC8xOS4wMy4xMiAobGludXgpIgoJfQp9"
 // Infress Vars
 def ingressName = "frontend-external"
 def ingressHost = "frontend-external.apps.meflab.xyz"
@@ -627,6 +628,21 @@ pipeline {
                         sh "kubectl get ns | grep ${appNameSpace}"
                     }
                 }
+            }
+        }
+        stage('Create Docker Secrete for online-boutique') {
+            steps {
+                echo "Deploying ${dockerKey} in ${appNameSpace} Namespace"
+                sh "kubectl -n ${appNameSpace} apply -f - <<EOF\n" +
+                        "apiVersion: v1\n" +
+                        "kind: Secret\n" +
+                        "metadata:\n" +
+                        "  name: ${dockerKey}\n" +
+                        "  namespace: ${appNameSpace}\n" +
+                        "data:\n" +
+                        "  .dockerconfigjson: ${dockerConfigJson}\n" +
+                        "type: kubernetes.io/dockerconfigjson\n" +
+                        "EOF"
             }
         }
         stage('Deploy online-boutique') {
