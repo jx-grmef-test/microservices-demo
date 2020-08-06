@@ -10,7 +10,7 @@ releases.
   format `$user/$project/$svcname:$tag` (where `svcname` = `adservice`, `cartservice`,
   etc.)
 
-### scripts 
+### scripts
 
 1. `./make-docker-images.sh`: builds and pushes images to the specified Docker repository.
 2. `./make-release-artifacts.sh`: generates a combined YAML file with image $TAG at: 
