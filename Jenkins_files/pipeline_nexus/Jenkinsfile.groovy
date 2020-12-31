@@ -15,7 +15,7 @@ def ingressHost = "frontend-external.apps.meflab.xyz" as java.lang.Object
 
 // Nexus Container Registry Service
 def nexusRegistry = "nexus-docker.apps.meflab.xyz/repository/microservices-demo" as java.lang.Object
-def nexusPassword = "nexus-password" as java.lang.Object
+def nexusPassword = "nexus-password" as java.lang.Objezct
 
 def app
 def imageName
